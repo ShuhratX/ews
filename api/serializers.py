@@ -2,7 +2,7 @@ from rest_framework import serializers
 from .models import *
 from django.contrib.auth.hashers import make_password
 
-class UserSerializer(serializers.ModelSerializer):
+class TrainingCenterDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = TrainingCenters
         fields = ('email', 'password', 'name', 'photo', 'phone_number', 'text', 'telegram', 'instagram', 'you_tube', 'languages')
@@ -34,9 +34,90 @@ class UserSerializer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return user
-        
+     
 
 class LoginSerializer(serializers.ModelSerializer):
     class Meta:
         model = TrainingCenters
         fields = ('email', 'password',)
+
+
+class GroupSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Group
+        fields = '__all__'
+
+
+class StudentsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Students
+        fields = '__all__'
+
+
+class ChatSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Chat
+        fields = "__all__"
+
+
+class PostSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Post
+        fields = "__all__"
+
+
+class SubjectsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Subjects
+        fields = "__all__"
+
+
+class TeacherSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Teacher
+        fields = "__all__"
+
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = "__all__"
+
+
+class AttendanceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Attendance
+        fields = "__all__"
+
+
+class PayMeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PayMe
+        fields = "__all__"
+
+
+class TrainingCenterGetSerializer(serializers.ModelSerializer):
+    group = GroupSerializer(many=True, required=False)
+    students = StudentsSerializer(many=True, required=False)
+    subjects = SubjectsSerializer(many=True, required=False)
+    teachers = TeacherSerializer(many=True, required=False)
+    categories = CategorySerializer(many=True, required=False)
+
+    class Meta:
+        model = TrainingCenters
+        fields = fields = (
+            'id', 
+            'email', 
+            'name', 
+            'photo', 
+            'phone_number', 
+            'text', 
+            'instagram', 
+            'telegram', 
+            'you_tube',
+            'categories',
+            'group',
+            'students',
+            'subjects',
+            'teachers'
+            )
