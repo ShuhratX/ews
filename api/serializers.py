@@ -42,6 +42,13 @@ class LoginSerializer(serializers.ModelSerializer):
         fields = ('email', 'password',)
 
 
+class VerifySerializer(serializers.ModelSerializer):
+    kod = serializers.CharField(max_length = 10)
+    class Meta:
+        model = TrainingCenters
+        fields = ('email', 'kod')
+
+
 class GroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = Group

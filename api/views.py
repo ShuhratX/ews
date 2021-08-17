@@ -39,12 +39,12 @@ class RegisterView(GenericAPIView):
 
 
 class VerifyView(GenericAPIView):
-    serializer_class = LoginSerializer
+    serializer_class = VerifySerializer
 
     def post(self, request):
         try:
             email = request.data.get('email')
-            msg = request.data.get('password')
+            msg = request.data.get('kod')
             ver = TrainingCenters.objects.get(email=email)
             if ver and msg==ver.msg:
                 ver.verified = True
