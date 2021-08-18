@@ -1,6 +1,8 @@
 from django.conf import settings
+from django.contrib import auth
 from django.core.mail import send_mail
 from rest_framework import status
+from rest_framework.authtoken.models import Token
 from rest_framework.generics import *
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -67,12 +69,14 @@ class LoginView(APIView):
 
         if user is not None:
             if user.verified == True:
-                user.last_login = datetime.now(pytz.utc)
-                user.save()
-                return Response({
-                    'id': user.id,
-                    'email': email
-                })
+            	token, created = Token.objects.get_or_create(user=user)
+            	user.last_login = datetime.now(pytz.utc)
+            	user.save()
+            	return Response({
+            		'id': user.id,
+            		'email': email,
+            		'token': token.key,
+            		})
             else:
                 return Response("Emailingiz tasdiqlashdan o'tmagan")
         else:
