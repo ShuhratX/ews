@@ -160,7 +160,7 @@ attendance_choices = (
 
 class Attendance(models.Model):
     training_center = models.ForeignKey('TrainingCenters', related_name='attendances', on_delete=models.CASCADE)
-    day = models.DateTimeField()
+    day = models.DateField()
     group = models.ForeignKey('api.Group', on_delete=models.RESTRICT, blank=True, null=True)
     students = models.ManyToManyField('Students')
 
