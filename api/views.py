@@ -28,7 +28,7 @@ class RegisterView(GenericAPIView):
         if(res == 1):
             msg1 = str(msg)+" "+  to +" ga jo'natildi "
         else:  
-            msg1 = "Mail Sending Failed."
+            msg1 = "Xabar jo'natishda xatolik!"
         print(msg1)
         if serializer.is_valid():
             user = serializer.save()
