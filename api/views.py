@@ -58,7 +58,7 @@ class VerifyView(GenericAPIView):
         except:
             return Response("Email yoki kod noto'g'ri")
 
-class LoginView(APIView):
+class LoginView(GenericAPIView):
     serializer_class = LoginSerializer
 
     @staticmethod
@@ -70,7 +70,6 @@ class LoginView(APIView):
         if user is not None:
             if user.verified == True:
             	token, created = Token.objects.get_or_create(user=user)
-            	user.last_login = datetime.now(pytz.utc)
             	user.save()
             	return Response({
             		'id': user.id,
