@@ -39,7 +39,7 @@ class TrainingCenterDetailSerializer(serializers.ModelSerializer):
 class LoginSerializer(serializers.ModelSerializer):
     class Meta:
         model = TrainingCenters
-        fields = ('email', 'password',)
+        fields = ('email', 'password')
 
 
 class VerifySerializer(serializers.ModelSerializer):
