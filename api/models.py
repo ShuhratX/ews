@@ -25,6 +25,8 @@ class TrainingCenters(AbstractUser):
 	languages = models.CharField(max_length=10, choices=LANGUAGE)
 	msg = models.CharField(max_length=10, null=True, blank=True)
 	verified = models.BooleanField(default=False)
+
+
 	def __str__(self):
 		return self.name
 
@@ -37,6 +39,7 @@ class Category(models.Model):
     training_center = models.ForeignKey('TrainingCenters', related_name='categories', on_delete=models.RESTRICT)
     name_uz = models.CharField(max_length=50)
     name_ru = models.CharField(max_length=50)
+    img = models.ImageField()
 
     def __str__(self):
         return self.name_uz
