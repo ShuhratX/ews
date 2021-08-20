@@ -5,7 +5,7 @@ from django.contrib.auth.hashers import make_password
 class TrainingCenterDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = TrainingCenters
-        fields = ('email', 'password', 'name', 'photo', 'phone_number', 'text', 'telegram', 'instagram', 'you_tube', 'languages')
+        fields = ('email', 'password', 'name', 'photo', 'phone_number', 'text', 'params', 'telegram', 'instagram', 'you_tube', 'languages')
         
 
     def validate(self, attrs):
