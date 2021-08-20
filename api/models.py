@@ -1,38 +1,42 @@
 from django.db import models
-from django.contrib.auth. models import AbstractUser
+from django.contrib.auth.models import AbstractUser
 from django.contrib.postgres.fields import ArrayField
 from django.utils.translation import ugettext_lazy as _
+
 
 # Create your models here.
 
 class TrainingCenters(AbstractUser):
-	username = None
-	email = models.EmailField(_('email address'), unique=True)
-	USERNAME_FIELD = 'email'
-	REQUIRED_FIELDS = []
-	name = models.CharField(max_length=50, verbose_name='name')
-	photo = models.ImageField()
-	text = models.TextField()
-	phone_number = models.CharField(max_length=50)
-	telegram = models.CharField(max_length=100, blank=True)
-	instagram = models.CharField(max_length=100, blank=True)
-	you_tube = models.CharField(max_length=100, blank=True)
-	LANGUAGE = (
-		('uz', 'uz'),
-		('ru', 'ru'),
-		('en', 'en')
-		)
-	languages = models.CharField(max_length=10, choices=LANGUAGE)
-	msg = models.CharField(max_length=10, null=True, blank=True)
-	verified = models.BooleanField(default=False)
+    username = None
+    email = models.EmailField(_('email address'), unique=True)
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+    name = models.CharField(max_length=50, verbose_name='name')
+    photo = models.ImageField()
+    text = models.TextField()
+    phone_number = models.CharField(max_length=50)
+    telegram = models.CharField(max_length=100, blank=True)
+    instagram = models.CharField(max_length=100, blank=True)
+    you_tube = models.CharField(max_length=100, blank=True)
+    params = ArrayField(models.CharField(max_length=100, blank=True),
+        size=8, null=True)
+    verified = models.BooleanField(default=False)
+    LANGUAGE = (
+        ('uz', 'uz'),
+        ('ru', 'ru'),
+        ('en', 'en')
+    )
+    languages = models.CharField(max_length=10, choices=LANGUAGE)
+    msg = models.CharField(max_length=10, null=True, blank=True)
 
 
-	def __str__(self):
-		return self.name
+class Meta:
+    verbose_name = "O'quv markaz"
+    verbose_name_plural = "O'quv markazlar"
 
-	class Meta:
-		verbose_name = "O'quv markaz"
-		verbose_name_plural = "O'quv markazlar"
+
+def __str__(self):
+    return self.name
 
 
 class Category(models.Model):
@@ -48,10 +52,10 @@ class Category(models.Model):
         verbose_name = "Kategoriya"
         verbose_name_plural = 'Kategoriyalar'
 
+
 class Subjects(models.Model):
     training_center = models.ForeignKey('TrainingCenters', related_name='subjects', on_delete=models.RESTRICT)
     name = models.CharField(max_length=50)
-
 
     def __str__(self):
         return self.name
@@ -86,16 +90,16 @@ class Group(models.Model):
     duration = models.CharField(max_length=255, null=True, blank=True)
     percent = ArrayField(
         models.CharField(max_length=255, blank=True),
-            size=8, null=True
+        size=8, null=True
     )
     start_date = models.DateField()
     days = ArrayField(
         models.CharField(max_length=100, blank=True),
-            size=8, null=True
+        size=8, null=True
     )
     time = ArrayField(
         models.CharField(max_length=100, blank=True),
-            size=8, null=True
+        size=8, null=True
     )
     image = models.ImageField(null=True, blank=True)
     description = models.TextField()
@@ -108,7 +112,7 @@ class Group(models.Model):
     )
     timef = ArrayField(
         models.CharField(max_length=100, blank=True),
-            size=8, null=True
+        size=8, null=True
     )
 
     def __str__(self):
@@ -155,11 +159,11 @@ class Chat(models.Model):
     image = models.ImageField()
 
 
-
 attendance_choices = (
     ('absent', 'Absent'),
     ('present', 'Present')
 )
+
 
 class Attendance(models.Model):
     training_center = models.ForeignKey('TrainingCenters', related_name='attendances', on_delete=models.CASCADE)
