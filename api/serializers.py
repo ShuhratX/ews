@@ -112,7 +112,7 @@ class TrainingCenterGetSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TrainingCenters
-        fields = fields = (
+        fields = (
             'id', 
             'email', 
             'name', 

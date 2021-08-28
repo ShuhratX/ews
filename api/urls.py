@@ -1,11 +1,11 @@
-from django.urls import path
+from django.urls import path, include
 from .views import *
 
 urlpatterns = [
 	path('register/', RegisterView.as_view()),
 	path('verify/', VerifyView.as_view()),
     path('login/', LoginView.as_view()),
-    
+    path('password_reset/', include('django_rest_passwordreset.urls', namespace='password_reset')),
 	path('training/', TrainingView.as_view()),
 	path('training/<int:pk>/', TrainingDetailView.as_view()),
 	path('subject/', SubjectView.as_view()),
